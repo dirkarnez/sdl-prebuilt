@@ -8,16 +8,17 @@ on:
 jobs:
   build:
     name: Create Release
-    runs-on: windows-2019
+    runs-on: windows-latest
     env:
       libraryName: SDL
-      mingwTargetZip: SDL-${{ github.ref_name }}-x86_64-posix-seh-rev0-8.1.0.zip
+      tagName: release-2.26.4
+      mingwTargetZip: SDL-${{ github.ref_name }}-mingw64-x86_64-posix-seh-rev0-8.1.0.zip
     steps:
       - name: check mingw version
         run: gcc --version
         
       - name: git clone
-        run: git clone --branch 2.0.22 https://github.com/libsdl-org/SDL.git
+        run: git clone https://github.com/libsdl-org/SDL.git && git checkout ${{ env.tagName }}
 
       - name: cmake
         shell: cmd
